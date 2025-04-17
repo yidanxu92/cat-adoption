@@ -1,0 +1,85 @@
+// VARIABLES
+$font-primary: 'Josefin Slab', serif;
+$font-secondary: 'Fascinate Inline', cursive;
+$green: #696d31;
+$pink: #fdb3d0;
+$orange: #f8842d;
+$beige: #f8f3e1;
+$black: #000000;
+
+// MIXINS
+@mixin flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin position ($pos, $top, $right, $bottom, $left) {
+  position: $pos;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin box-shadow ($x, $y, $color) {
+  box-shadow: $x $y $color;
+}
+
+@mixin text-shadow ($x, $y, $color) {
+  text-shadow: $x $y $color;
+}
+
+@mixin bg-img ($img-name) {
+  content: '';
+  background: url(./../assets/#{$img-name}) no-repeat;
+}
+
+//Adopted from https://thoughtbot.com/blog/sasss-content-directive
+@mixin media($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+// ULTIMATE PX TO REM CONVERTER
+//Adopted from https://45royale.com/blog/convert-pixels-to-rems/
+
+$global-font-size: 100% !default;
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function rem-calc($values, $base: null) {
+  $rem-values: ();
+  $count: length($values);
+  //If no base is defined, defer to the global font size
+  @if $base == null {
+    $base: $global-font-size;
+  } @if unit($base) == '%' {
+    $base: ($base / 100%) * 20px;
+  } // Using rem as base allows correct scaling
+  @if unit($base) == 'rem' {
+    $base: strip-unit($base) * 20px;
+  } @if $count == 1 {
+    @return -to-rem($values, $base);
+  } @for $i from 1 through $count {
+    $rem-values: append($rem-values, -to-rem(nth($values, $i), $base));
+  } @return $rem-values;
+}
+
+@function -to-rem($value, $base: null) {
+  // Check if the value is a number
+  @if type-of($value) != 'number' {
+    @warn inspect($value) + ' was passed to rem-calc(), which is not a number.';
+    @return $value;
+  } // Transform em into rem if someone hands over 'em's
+  @if unit($value) == 'em' {
+    $value: strip-unit($value) * 1rem;
+  } // Calculate rem if units for $value is not rem or em
+  @if unit($value) != 'rem' {
+    $value: strip-unit($value) / strip-unit($base) * 1rem;
+  } // Turn 0rem into 0
+  @if $value == 0rem {
+    $value: 0;
+  } @return $value;
+}

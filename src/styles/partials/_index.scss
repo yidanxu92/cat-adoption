@@ -1,0 +1,208 @@
+// HEADER
+header {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    .txt-strong {
+      margin-bottom: 0;
+      & + p {
+        margin-top: 0;
+        margin-bottom: .5rem;
+      }
+    }
+  
+    @include media(757px) {
+      background: url('./../assets/bckgrnd-pattern.png');
+    }
+  
+    &::after {
+      content: '';
+      display: block;
+      @include bg-img ('bird.svg');
+      @include position (absolute, rem-calc(-115px), rem-calc(-150px), null, null);
+      height: 100%;
+      width: rem-calc(400px);
+  
+      @include media(454px) {
+        width: rem-calc(450px);
+      }
+      @include media(757px) {
+        display: none;
+      }
+    } 
+  }
+  
+  .container-header-content {
+      padding: 0;
+  
+    @include media(757px) {
+      border: .5rem solid $green;
+      background-color: rgba($beige, .85);
+      padding: 1.5rem 2rem;
+    }
+  }
+  
+  h1{
+    margin-top: 0;
+    margin-bottom: 1.6rem;
+    font-family: $font-secondary;
+    text-transform: capitalize;
+    font-size: rem-calc(35px);
+    @include text-shadow (rem-calc(2px), rem-calc(2px), $pink);
+  
+    @include media (454px) {
+      font-size: rem-calc(40px);
+    }
+    @include media (554px) {
+      font-size: rem-calc(50px);
+    }
+     @include media (732px) {
+      font-size: rem-calc(60px);
+    }
+  }
+  
+  // QUESTIONS
+  .container-q-diet,
+  .container-q-stranger {
+    justify-content: center;
+    & .wrapper.container-flex {
+      flex-direction: column;
+  
+      @include media (750px) {
+      flex-direction: row;
+      }
+    }
+  }
+  
+  .q-num {
+    font-family: $font-secondary;
+    font-size: rem-calc(100px);
+    margin-top: rem-calc(-35px);
+  
+    @include media (454px) {
+      font-size: rem-calc(125px);
+    }
+  
+    @include media (750px) {
+      font-size: rem-calc(150px);
+      margin-right: 2rem;
+      margin-top: -3.5rem;
+    }
+  }
+  
+  label {
+    line-height: 1.6;
+  }
+  
+  .legend {
+    font-weight: 700;
+    padding-bottom: 1rem;
+  
+    @include media (454px) {
+      font-size: rem-calc(26px);
+    }
+  }
+  
+  .img-result {
+    position: relative;
+    &::after {
+      @include position (absolute, rem-calc(2px), null, null, rem-calc(2px));
+      z-index: -10;
+      fill: $pink;
+    }
+    .img-result-bear {
+      &::after {
+        @include bg-img ('bear.svg');
+        width: rem-calc(490px);
+        height: 100%;
+      }
+    }
+    .img-result-rabbit {
+      &::after {
+        @include bg-img ('rabbit.svg');
+        width: rem-calc(471px);
+        height: 100%;
+      }
+    }
+  }
+  
+  //SUBMIT
+  .container-submit {
+    position: relative;
+    overflow: hidden;
+    &::before {
+      content: '';
+      display: block;
+      @include bg-img ('acorn.svg');
+      @include position (absolute, rem-calc(-60px), null, null, rem-calc(-80px));
+      height: 100%;
+      width: rem-calc(330px); 
+  
+      @include media(454px) {
+        width: rem-calc(400px);
+      }
+      @include media(700px) {
+        width: rem-calc(480px);
+      }
+      @include media(1240px) {
+        width: rem-calc(550px);
+      }
+    }
+  }
+  
+  // RESULT
+  .container-display-result p:first-of-type {
+    margin-bottom: 0;
+  }
+  
+  h2 {
+    font-family: $font-secondary;
+    font-size: rem-calc(48px);
+    text-transform: capitalize;
+    @include text-shadow (rem-calc(2px), rem-calc(2px), $pink);
+    margin: 0;
+  
+    @include media (454px) {
+      font-size: rem-calc(60px);
+    }
+  }
+  
+  //RESET
+  .container-reset-quiz {
+    position: relative;
+    overflow: hidden;
+    &::before {
+      content: '';
+      display: block;
+      @include bg-img ('mushroom.svg');
+      @include position (absolute, null, rem-calc(-270px), -1.2rem, null);
+      height: 100%;
+      width: rem-calc(490px); 
+  
+      @include media (454px) {
+        font-size: rem-calc(520px);
+      }
+      @include media(700px) {
+        width: rem-calc(600px);
+        @include position (null, null, rem-calc(-250px), null, null);
+      }
+      @include media(1240px) {
+        width: rem-calc(750px);
+      }
+    }
+  }
+  
+  // FOOTER
+  footer {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    p {
+      margin: 0;
+      text-align: center;
+      font-size: rem-calc(18px);
+  
+      @include media(625px) {
+        font-size: 1rem;
+      }
+    }
+  }

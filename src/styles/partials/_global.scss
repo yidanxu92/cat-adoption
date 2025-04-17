@@ -1,0 +1,105 @@
+// GLOBAL
+
+html {
+	font-size: 125%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-primary;
+  background-color: $beige;
+  font-size: rem-calc(22px);
+
+  @include media (454px) {
+    font-size: rem-calc(24px);
+  }
+}
+
+p,
+label,
+.legend {
+  line-height: 1.3;
+}
+
+img {
+	display: block;
+	width: 100%;
+	min-width: 100%;
+}
+
+.wrapper {
+  max-width: 850px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  //so background img will never go on top
+  z-index: 10;
+
+  @include media (454px) {
+    padding: 0 2rem;
+  }
+  @include media(625px) {
+    padding: 0 3.5rem;
+  }
+}
+
+.container,
+header {
+  height: 100%;
+  min-height: 100vh;
+  @include flex-center;
+}
+
+.container-flex {
+  display: flex;
+}
+
+.container-submit,
+.container-display-result,
+.container-reset-quiz {
+  text-align: center;
+}
+
+.container.container-display-result,
+.container-reset-quiz {
+  display: none;
+}
+
+.alert {
+  color: $orange;
+  font-family: $font-primary;
+  font-weight: 700;
+  font-style: italic;
+  text-align: left;
+  letter-spacing: .01rem;
+  background-color: $black;
+  padding: .5rem;
+  justify-content: center;
+  i {
+    margin-right: .4rem;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.txt-strong {
+  font-weight: 700;
+}
+
+.bg-green {
+  background-color: $green;
+  color: $beige;
+  .q-num {
+    color: $pink;
+    @include text-shadow (rem-calc(2px), rem-calc(2px), $beige)
+  }
+}
+
+.bg-pink {
+  background-color: $pink;
+  .q-num {
+    color: $green;
+    @include text-shadow (rem-calc(2px), rem-calc(2px), $black)
+  }
+}
