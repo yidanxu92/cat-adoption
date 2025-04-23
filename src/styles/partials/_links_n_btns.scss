@@ -28,20 +28,7 @@ a {
     }
   }
   
-  .btn-dark {
-    &:hover {
-      background-color: $green;
-      color: $beige;
-    }
-  }
-  
-  .btn-light {
-    &:hover {
-      background-color: $pink;
-      color: $black;
-    }
-  }
-  
+
   // SCROLL DOWN ARROW
   .fa-chevron-down {
     color: $orange;
@@ -70,17 +57,3 @@ a {
     height: 1.5rem;
   }
   
-  input[type="radio"] { 
-    cursor: pointer;
-    & ~ label::before {
-      font-family: 'Font Awesome 5 Free';
-      display: inline-block;
-      content: "\f111";
-      margin-right: .4rem;
-    }
-    &:checked ~ label::before {
-      content: "\f00c";
-      //must add font-weight:900 for icon to work
-      font-weight: 900;
-    }
-  }

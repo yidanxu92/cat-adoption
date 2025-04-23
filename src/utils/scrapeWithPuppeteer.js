@@ -10,11 +10,11 @@ const scrapeCats = async () => {
   let hasMorePages = true;
 
   while (hasMorePages) {
-    console.log(`正在爬取第 ${pageNumber} 页...`);
+    console.log(`Scraping page ${pageNumber}...`);
     const url = `https://www.tabbysplace.org/adopt/?fwp_paged=${pageNumber}`;
     await page.goto(url);
 
-    // 检查页面是否有猫咪列表
+    // check if there is a cat list on the page
     const catLinks = await page.$$eval(
       '#adopt-cats .cat-loop .cat-block a',
       links => links.map(link => link.href)
@@ -22,7 +22,7 @@ const scrapeCats = async () => {
 
     if (catLinks.length === 0) {
       hasMorePages = false; // 当前页没有猫咪，停止爬取
-      console.log('没有更多页面了。');
+      console.log('No more pages');
       break;
     }
 
@@ -68,14 +68,14 @@ const scrapeCats = async () => {
       });
 
       cats.push(catData);
-      console.log(`爬取了猫咪: ${catData.name}`);
+      console.log(`Scraped cat: ${catData.name}`);
     }
 
     pageNumber++;
   }
 
   fs.writeFileSync('./cats.json', JSON.stringify(cats, null, 2));
-  console.log('所有猫咪数据已保存到 cats.json');
+  console.log('all cats data saved to cats.json');
 
   await browser.close();
   return cats;

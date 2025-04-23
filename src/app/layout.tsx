@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Josefin_Slab, Fascinate_Inline } from "next/font/google";
 import "../styles/style.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 
 
 const geistSans = Geist({
@@ -11,6 +14,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const josefinSlab = Josefin_Slab({
+  variable: "--font-josefin-slab",
+  subsets: ["latin"],
+  weight: ["400", "700"],  
+});
+
+const fascinateInline = Fascinate_Inline({
+  variable: "--font-fascinate-inline",
+  subsets: ["latin"],
+  weight: ["400"],  
 });
 
 export const metadata: Metadata = {
@@ -25,8 +40,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link 
+          rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
+          integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" 
+          crossOrigin="anonymous" 
+          referrerPolicy="no-referrer" 
+        />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;700&family=Fascinate+Inline&display=swap" 
+          rel="stylesheet"
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${josefinSlab.variable} ${fascinateInline.variable} antialiased`}
       >
         {children}
       </body>

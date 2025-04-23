@@ -116,12 +116,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     cursor: default;
   }
   
-  input[type=checkbox], input[type=radio] {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    padding: 0;
-  }
-  
+
   input[type=search] {
     -webkit-appearance: textfield;
     -webkit-box-sizing: content-box;
@@ -241,9 +236,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   }
   
   .container-flex {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 3rem;
+    padding-top: 2rem;
   }
   
   .container-submit,
@@ -289,15 +288,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   }
   
   .bg-green .q-num {
-    color: #fdb3d0;
+    color: #f8f3e1;
     text-shadow: 0.1rem 0.1rem #f8f3e1;
   }
   
-  .bg-pink {
-    background-color: #fdb3d0;
+  .bg-beige {
+    background-color: #f8f3e1;
   }
   
-  .bg-pink .q-num {
+  .bg-beige .q-num {
     color: #696d31;
     text-shadow: 0.1rem 0.1rem #000000;
   }
@@ -306,6 +305,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     text-align: center;
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
   }
   
   header .txt-strong {
@@ -320,6 +323,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   @media (min-width: 757px) {
     header {
       background:  url("/images/background.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
   }
   
@@ -348,15 +354,40 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   }
   
   .container-header-content {
-    padding: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   
   @media (min-width: 757px) {
     .container-header-content {
       border: 0.5rem solid #696d31;
       background-color: rgba(248, 243, 225, 0.85);
-      padding: 1.5rem 2rem;
+      padding: 2rem;
     }
+  }
+  
+  .container-header-content h1 {
+    text-align: center;
+    width: 100%;
+  }
+  
+  .container-header-content p {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   h1 {
@@ -415,6 +446,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     font-family: "Fascinate Inline", cursive;
     font-size: 5rem;
     margin-top: -1.75rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 100%;
   }
   
   @media (min-width: 454px) {
@@ -426,7 +460,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   @media (min-width: 750px) {
     .q-num {
       font-size: 7.5rem;
-      margin-right: 2rem;
       margin-top: -3.5rem;
     }
   }
@@ -436,8 +469,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   }
   
   .legend {
-    font-weight: 700;
-    padding-bottom: 1rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 1.5rem auto;
+    width: 100%;
   }
   
   @media (min-width: 454px) {
@@ -591,15 +626,16 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   }
   
   .btn {
-    margin: 1rem 0;
+    margin: 1.5rem auto 0;
+    display: block;
+    width: 80%;
+    max-width: 16rem;
     background-color: #f8842d;
     padding: 1rem 1.5rem;
     border: none;
     color: #000000;
     font-size: 1.5rem;
     font-weight: 700;
-    width: 100%;
-    max-width: 16rem;
     -webkit-transition-duration: .2s;
             transition-duration: .2s;
     -webkit-transition-property: background-color, color, -webkit-transform;
@@ -619,7 +655,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   }
   
   .btn-light:hover {
-    background-color: #fdb3d0;
+    background-color: #f8f3e1;
     color: #000000;
   }
   
@@ -654,19 +690,198 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     height: 1.5rem;
   }
   
-  input[type="radio"] {
-    cursor: pointer;
+
+  
+  .result-container {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f8f3e1;
   }
   
-  input[type="radio"] ~ label::before {
-    font-family: 'Font Awesome 5 Free';
-    display: inline-block;
-    content: "\f111";
-    margin-right: .4rem;
+  .matched-cats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    position: relative;
+    z-index: 1;
   }
   
-  input[type="radio"]:checked ~ label::before {
-    content: "\f00c";
-    font-weight: 900;
+  .cat-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .cat-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .cat-card img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .cat-card h2 {
+    margin: 1rem 0;
+    font-size: 2rem;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .cat-card p {
+    margin: 0.5rem 0;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .trait-tag {
+    background-color: #f0f0f0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+  
+  .match-score {
+    font-weight: bold;
+    color: #696d31;
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+  
+  .loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #696d31;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .custom-radio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px auto;
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .custom-radio label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    width: 80%;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+  }
+  
+  .custom-radio label i {
+    margin-right: 0.8rem;
+    flex-shrink: 0;
+  }
+  
+
+  .wrapper > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .legend {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 1.5rem auto;
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .wrapper.container-flex {
+      margin-top: 2rem;
+      padding-top: 1rem;
+    }
+  }
+  
+  .cat-card > div:last-child {
+    align-self: center !important;
+    margin-top: 1rem !important;
+    width: 100%;
+    text-align: center;
+  }
+  
+  @media (min-width: 768px) {
+    .cat-card {
+      max-width: 80%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .cat-card {
+      max-width: 70%;
+    }
+  }
+  
+  @media (min-width: 1440px) {
+    .cat-card {
+      max-width: 60%;
+    }
+  }
+  
+  .bg-green .custom-radio label:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+  }
+  
+  .bg-green .custom-radio input[type="radio"]:checked + label {
+    background-color: rgba(255, 255, 255, 0.2); 
+  }
+  
+  .bg-beige .custom-radio label:hover {
+    background-color: rgba(105, 109, 49, 0.1); 
+  }
+  
+  .bg-beige .custom-radio input[type="radio"]:checked + label {
+    background-color: rgba(105, 109, 49, 0.2); 
   }
  

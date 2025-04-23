@@ -1,136 +1,205 @@
 "use client"
 
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 
-const Quiz = ({ currentPage, goToNextPage }) => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState({});
-  const [result, setResult] = useState(null);
+const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswered }) => {
+
   const [error, setError] = useState("");
-
+  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
+  const [highlightUnanswered, setHighlightUnanswered] = useState(false);
   const questions = [
     {
-      question: "What's your ideal way to spend a day?",
+      question: "At the edge of the jungle, three cats appear, offering to guide you on this adventure. Who will you choose?",
       options: [
-        { text: "Exploring the forest, climbing trees, and running around!", value: "active" },
-        { text: "Relaxing by a cozy fire, reading, and napping.", value: "calm" },
-        { text: "Finding hidden spots to paint, draw, or just observe nature.", value: "creative" },
+        { text: "A lively kitten bouncing around you, eager to start the journey.", value: ["Playful", "Outgoing"] },
+        { text: "A quiet cat sitting under a tree, gazing at you with a calm demeanor.", value: ["Reserved", "Timid"] },
+        { text: "A warm and affectionate cat that rubs against your leg, purring softly.", value: ["Affectionate", "Cuddly"] },
       ],
       name: "q1",
     },
     {
-      question: "Which type of cat would you want to have as your companion?",
+      question: "You find paw prints on the forest floor, each leading to a different destination. Which path will you follow?",
       options: [
-        { text: "A cat that is always curious, exploring new things and places.", value: "curious" },
-        { text: "A cat that loves sitting by your side, quietly enjoying the moment.", value: "calm" },
-        { text: "A cat that's a bit of a mystery – loves to surprise you with its actions.", value: "independent" },
+        { text: "Tiny prints leading to a meadow full of blooming flowers.", value: ["Kitten"] },
+        { text: "Medium-sized prints winding through a shady trail.", value: ["Young Adult"] },
+        { text: "Large, deep prints heading toward a towering ancient tree.", value: ["Adult", "Senior"] },
       ],
       name: "q2",
     },
     {
-      question: "What's the best feature of a cat?",
+      question: "At a shimmering lake, a cat asks, 'Who would you like to spend time with?'",
       options: [
-        { text: "Their sparkling eyes that seem to tell a story.", value: "intuitive" },
-        { text: "Their playful antics, always keeping you entertained.", value: "playful" },
-        { text: "Their ability to calm you with just a purr.", value: "soothing" },
+        { text: "A playful group of children chasing butterflies with the cat.", value: ["comfortable with kids"] },
+        { text: "A curious dog sniffing around and playing with the cat.", value: ["comfortable with dogs"] },
+        { text: "Other cats lounging and basking in the sun.", value: ["comfortable with other cats"] },
       ],
       name: "q3",
     },
     {
-      question: "On a moonlit night, you spot a group of cats in the meadow. What would you do?",
+      question: "In the forest, you spot tufts of fur left behind. What catches your eye?",
       options: [
-        { text: "Join the group and play with them!", value: "sociable" },
-        { text: "Sit back and watch them quietly.", value: "introverted" },
-        { text: "I'll hang out near the edge and observe their behavior from a distance.", value: "independent" },
+        { text: "Bright white fur shining in the sunlight.", value: ["White", "Solid"] },
+        { text: "Dark black fur blending into the shadows.", value: ["Black", "Solid"] },
+        { text: "A patch of multicolored fur, vivid and unique.", value: ["Tortoiseshell", "Calico", "Bicolor", "Harlequin"] },
       ],
       name: "q4",
     },
     {
-      question: "The river ahead seems wide and swift. A cat appears and offers to help you across. What would you do?",
+      question: "Inside an old treehouse, you find drawings of different cats. Which one draws your attention?",
       options: [
-        { text: "Let the cat guide me and cross together.", value: "helpful" },
-        { text: "I'll carefully cross on my own.", value: "independent" },
-        { text: "I'll ask the cat to stay with me for company, even if it's tricky.", value: "supportive" },
+        { text: "A sleek cat with a solid, classic look.", value: ["Solid", "Tuxedo"] },
+        { text: "A striped tabby, with a natural and timeless pattern.", value: ["Tabby"] },
+        { text: "A strikingly patterned cat with bold contrasts.", value: ["Bicolor", "Harlequin"] },
       ],
       name: "q5",
     },
     {
-      question: "You find paw prints along the lake's edge. Which one will you follow?",
+      question: "As you approach the jungle's edge, a cat asks, 'Where would you like me to stay?'",
       options: [
-        { text: "Tiny paw prints leading to a flower meadow.", value: "kitten" },
-        { text: "Medium-sized paw prints disappearing deep into the forest.", value: "adult" },
-        { text: "Big, deep paw prints heading towards a large tree.", value: "senior" },
+        { text: "Inside, always by your side, no matter the weather.", value: ["Affectionate", "Cuddly"] },
+        { text: "Mostly outside, exploring and doing its own thing.", value: ["Independent", "Outgoing"] },
+        { text: "A mix of both – content to be where it's needed.", value: ["Easy-going", "Reserved"] },
       ],
       name: "q6",
     },
+
     {
-      question: "You meet a forest guide who can help you find your destined cat. The guide asks, 'What kind of companion do you want?'",
-      options: [
-        { text: "A cat with vibrant, unique fur colors!", value: "colorful" },
-        { text: "A black-and-white cat, neat and elegant.", value: "black_white" },
-        { text: "Any color is fine, as long as it's a good match!", value: "any" },
-      ],
+      question: "Ready to meet your new best friend?",
       name: "q7",
-    },
-    {
-      question: "You discover a cabin in the forest where you hear children's laughter and a cat's meow. What do you think?",
-      options: [
-        { text: "How sweet! I'd love a cat that enjoys being around children.", value: "children_friendly" },
-        { text: "I'm not sure. I'd prefer a calm cat.", value: "calm_no_children" },
-      ],
-      name: "q8",
-    },
-    {
-      question: "As night falls, the forest quiets down. A cat silently approaches you. What kind of personality do you want in your new friend?",
-      options: [
-        { text: "Energetic and playful, always ready to have fun with me!", value: "playful" },
-        { text: "Quiet and gentle, content to sit by my side.", value: "gentle" },
-      ],
-      name: "q9",
-    },
+    }
+
   ];
-
-
-
-
-  const handleAnswer = (questionName, value) => {
-    setAnswers({ ...answers, [questionName]: value });
+  
+ 
+  
+  const handleAnswer = (questionName, value, currentQuestionIndex) => {
+    onAnswer(questionName, value);
     setError("");
-  };
 
-  const handleNext = () => {
-    const currentQuestionName = questions[currentQuestion].name;
-    if (!answers[currentQuestionName]) {
-      setError("Please select an answer before moving to the next question.");
-    } else {
-      setError("");
-      goToNextPage();
+    // Check if all questions are now answered
+    const updatedAnswers = { ...answers, [questionName]: value };
+    const allAnswered = questions
+      .filter(q => q.options) // Only consider questions with options
+      .every(q => updatedAnswers[q.name]);
+    
+    // If all questions are now answered, set the flag
+    if (allAnswered && !allQuestionsAnswered) {
+      setAllQuestionsAnswered(true);
+      // Notify parent component to start preloading
+      onAllQuestionsAnswered(updatedAnswers);
+    } else if (!allAnswered && allQuestionsAnswered) {
+      // If user changes and now not all questions are answered
+      setAllQuestionsAnswered(false);
+    }
+
+    // Automatically scroll to the next question, unless it's the last one
+    if (currentQuestionIndex < questions.length - 1) {
+      handleScrollTo(`question-${currentQuestionIndex + 1}`);
     }
   };
 
+
+  const handleFinalSubmit = () => {
+    const unansweredQuestions = questions.filter((q) => q.options && !answers[q.name]);
+    if (unansweredQuestions.length > 0) {
+      setHighlightUnanswered(true);
+      setError("Please answer all questions before completing the quiz.");
+      
+      // Scroll to the first unanswered question
+      const firstUnansweredIndex = questions.findIndex((q) => q.options && !answers[q.name]);
+      if (firstUnansweredIndex >= 0) {
+        handleScrollTo(`question-${firstUnansweredIndex}`);
+      }
+    } else {
+      setHighlightUnanswered(false);
+      setError("");
+      onComplete(answers);
+    }
+  };
+
+  // Add this effect to reset allQuestionsAnswered when answers are cleared
+  useEffect(() => {
+    // If answers object is empty, reset the allQuestionsAnswered state
+    if (Object.keys(answers).length === 0) {
+      setAllQuestionsAnswered(false);
+    }
+  }, [answers]);
+
   return (
-    <div
-      className="page"
-      style={{ height: "100vh", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center" }}
-    >
-      <h2>{questions[currentPage - 1].question}</h2>
-      <div className="options">
-        {questions[currentPage - 1].options.map((option, idx) => (
-          <div key={idx} className="option">
-            <input
-              type="radio"
-              id={`${questions[currentPage - 1].name}-${option.value}`}
-              name={questions[currentPage - 1].name}
-              value={option.value}
-              onChange={() => handleAnswer(questions[currentPage - 1].name, option.value)}
-            />
-            <label htmlFor={`${questions[currentPage - 1].name}-${option.value}`}>{option.text}</label>
+    <div>  
+      {questions.map((q, index) => {
+        const isUnanswered = q.options && !answers[q.name] && highlightUnanswered;
+        
+        return (
+          <div
+            id={`question-${index}`}
+            key={index}
+            className={`container container-flex ${index % 2 === 0 ? 'bg-green' : 'bg-beige'} ${isUnanswered ? 'unanswered-question' : ''}`}
+          >
+            <div className="wrapper container-flex">
+            {index !== questions.length - 1 && <div className="q-num">{index + 1}</div>}
+              
+              <div>
+                <div className="legend">{q.question}</div>
+                
+                {q.options?.map((option) => {
+                  const isChecked = JSON.stringify(answers[q.name]) === JSON.stringify(option.value);   
+                  const checkColor = index % 2 === 0 ? "#f8f3e1" : '#696d31';
+                  
+                  return (
+                    <div key={JSON.stringify(option.value)} style={{ margin: "10px 0" }} className="custom-radio">
+                      <input
+                        type="radio"
+                        id={`${q.name}-${JSON.stringify(option.value)}`}
+                        name={q.name}
+                        value={JSON.stringify(option.value)}
+                        checked={isChecked}
+                        onChange={() => handleAnswer(q.name, option.value, index)}
+                        style={{ display: 'none' }}
+                      />
+                      <label 
+                        htmlFor={`${q.name}-${JSON.stringify(option.value)}`}
+                        className={`radio-label ${isChecked ? 'selected' : ''}`}
+                        style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          cursor: 'pointer',
+                          fontFamily: 'var(--font-josefin-slab)'
+                        }}
+                      >
+                        <i 
+                          className={isChecked ? "fas fa-check-circle" : "far fa-circle"}
+                          style={{ 
+                            marginRight: '0.4rem',
+                            color: isChecked ? checkColor : 'inherit',
+                            fontSize: '1.2rem'
+                          }}
+                        ></i>
+                        {option.text}
+                      </label>
+                    </div>
+                  );
+                })}
+                
+                {/* Add a visual indicator for unanswered questions using the alert class */}
+                {isUnanswered && (
+                  <div className="alert">
+                    <p>Please answer this question</p>
+                  </div>
+                )}
+                
+                {index === questions.length - 1 && (
+                  <button onClick={handleFinalSubmit} className="btn btn-light">
+                    Yes Please!
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
-        ))}
-      </div>
-      <button onClick={handleNext}>Next</button>
+        );
+      })}
     </div>
   );
-};
+}
 
 export default Quiz;
