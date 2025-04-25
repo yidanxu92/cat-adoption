@@ -7,6 +7,7 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
   const [error, setError] = useState("");
   const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false);
   const [highlightUnanswered, setHighlightUnanswered] = useState(false);
+  const [dynamicWarnings, setDynamicWarnings] = useState({});
   const questions = [
     {
       question: "At the edge of the jungle, three cats appear, offering to guide you on this adventure. Who will you choose?",
@@ -69,33 +70,57 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
     }
 
   ];
-  
- 
-  
+
   const handleAnswer = (questionName, value, currentQuestionIndex) => {
+    const updatedAnswers = { ...answers, [questionName]: value };
+    
+    const findNextWithUpdatedAnswers = () => {
+      const nextUnansweredIndex = questions.findIndex(
+        (q) => q.options && !updatedAnswers[q.name]
+      );
+      return nextUnansweredIndex >= 0 ? nextUnansweredIndex : questions.length - 1;
+    };
+    
+    const nextIndex = findNextWithUpdatedAnswers();
+    
+    if (dynamicWarnings[questionName]) {
+      setDynamicWarnings(prev => {
+        const newWarnings = {...prev};
+        delete newWarnings[questionName];
+        return newWarnings;
+      });
+    }
+    
+    
     onAnswer(questionName, value);
     setError("");
 
-    // Check if all questions are now answered
-    const updatedAnswers = { ...answers, [questionName]: value };
+    
     const allAnswered = questions
-      .filter(q => q.options) // Only consider questions with options
+      .filter(q => q.options)
       .every(q => updatedAnswers[q.name]);
     
-    // If all questions are now answered, set the flag
+    
     if (allAnswered && !allQuestionsAnswered) {
       setAllQuestionsAnswered(true);
-      // Notify parent component to start preloading
       onAllQuestionsAnswered(updatedAnswers);
     } else if (!allAnswered && allQuestionsAnswered) {
-      // If user changes and now not all questions are answered
       setAllQuestionsAnswered(false);
     }
 
-    // Automatically scroll to the next question, unless it's the last one
-    if (currentQuestionIndex < questions.length - 1) {
-      handleScrollTo(`question-${currentQuestionIndex + 1}`);
+   
+    if (nextIndex < currentQuestionIndex) {
+      
+      setDynamicWarnings(prev => ({
+        ...prev,
+        [questions[nextIndex].name]: true
+      }));
     }
+
+    
+    setTimeout(() => {
+      handleScrollTo(`question-${nextIndex}`);
+    }, 50);
   };
 
 
@@ -125,10 +150,20 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
     }
   }, [answers]);
 
+  // 添加一个useEffect来监听answers的变化
+  useEffect(() => {
+    // 如果answers为空，清除所有动态警告
+    if (Object.keys(answers).length === 0) {
+      setDynamicWarnings({});
+    }
+  }, [answers]);
+
   return (
     <div>  
       {questions.map((q, index) => {
-        const isUnanswered = q.options && !answers[q.name] && highlightUnanswered;
+        // 问题未回答且(全局高亮模式开启或该问题有动态警告)
+        const isUnanswered = q.options && !answers[q.name] && 
+          (highlightUnanswered || dynamicWarnings[q.name]);
         
         return (
           <div
@@ -181,7 +216,7 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
                   );
                 })}
                 
-                {/* Add a visual indicator for unanswered questions using the alert class */}
+                {/* 显示警告 */}
                 {isUnanswered && (
                   <div className="alert">
                     <p>Please answer this question</p>
