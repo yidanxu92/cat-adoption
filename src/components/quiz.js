@@ -150,9 +150,7 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
     }
   }, [answers]);
 
-  // 添加一个useEffect来监听answers的变化
   useEffect(() => {
-    // 如果answers为空，清除所有动态警告
     if (Object.keys(answers).length === 0) {
       setDynamicWarnings({});
     }
@@ -161,7 +159,6 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
   return (
     <div>  
       {questions.map((q, index) => {
-        // 问题未回答且(全局高亮模式开启或该问题有动态警告)
         const isUnanswered = q.options && !answers[q.name] && 
           (highlightUnanswered || dynamicWarnings[q.name]);
         
