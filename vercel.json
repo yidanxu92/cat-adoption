@@ -4,5 +4,16 @@
       "path": "/api/update-cats",
       "schedule": "0 0 */3 * *"  
     }
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
   ]
 } 
