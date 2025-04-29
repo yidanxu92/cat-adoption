@@ -4,6 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import Quiz from '../components/quiz';
 import Result from '../components/result';
 
+interface QuizAnswers {
+  [key: string]: string | number | boolean;
+  // 或者更具体的字段定义
+}
+
 export default function Home() {
   const [answers, setAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
@@ -118,7 +123,7 @@ export default function Home() {
         onAnswer={(name:string, value:string) => setAnswers((prev) => ({ ...prev, [name]: value }))}
           handleScrollTo={handleScrollTo}
           onComplete={handleQuizComplete}
-          onAllQuestionsAnswered={(answers) => {
+          onAllQuestionsAnswered={(answers: any) => {
             // Start preloading results
             preloadResults(answers);
           }}
