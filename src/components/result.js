@@ -109,16 +109,12 @@ const Result = ({ answers, onStartOver, preloadedResults }) => {
             <div style={{ alignSelf: 'center', marginTop: '10px' }}>
               <a 
                 href={cat.link} 
+                className="page-header-adopt"
                 target="_blank" 
-                rel="noopener noreferrer" 
-                className="read-more-link"
-                style={{ color: '#007BFF', textDecoration: 'underline', display: 'inline-block' }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.open(cat.link, '_blank', 'noopener,noreferrer');
-                }}
+                rel="noopener noreferrer"
               >
-                Read more
+                adopt
+                <i className="fa fa-paw"></i>
               </a>
             </div>
               

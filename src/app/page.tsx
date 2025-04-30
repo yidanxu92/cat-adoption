@@ -6,7 +6,6 @@ import Result from '../components/result';
 
 interface QuizAnswers {
   [key: string]: string | number | boolean;
-  // 或者更具体的字段定义
 }
 
 export default function Home() {
@@ -102,7 +101,7 @@ export default function Home() {
               <h1>Your New Best Feline Friend</h1>
 
               <p>
-                Take this quiz to find your perfect
+                Answer 6 questions to find your perfect
                 feline companion!
               </p>
 

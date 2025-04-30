@@ -70,10 +70,11 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
     }
 
   ];
+  
 
-  const handleAnswer = (questionName, value, currentQuestionIndex) => {
+  const handleAnswer = (questionName, value, currentQuestionIndex, event) => {
+    // 直接执行回调函数
     const updatedAnswers = { ...answers, [questionName]: value };
-    
     const findNextWithUpdatedAnswers = () => {
       const nextUnansweredIndex = questions.findIndex(
         (q) => q.options && !updatedAnswers[q.name]
@@ -91,15 +92,12 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
       });
     }
     
-    
     onAnswer(questionName, value);
     setError("");
 
-    
     const allAnswered = questions
       .filter(q => q.options)
       .every(q => updatedAnswers[q.name]);
-    
     
     if (allAnswered && !allQuestionsAnswered) {
       setAllQuestionsAnswered(true);
@@ -108,16 +106,13 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
       setAllQuestionsAnswered(false);
     }
 
-   
     if (nextIndex < currentQuestionIndex) {
-      
       setDynamicWarnings(prev => ({
         ...prev,
         [questions[nextIndex].name]: true
       }));
     }
 
-    
     setTimeout(() => {
       handleScrollTo(`question-${nextIndex}`);
     }, 50);
@@ -186,7 +181,7 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
                         name={q.name}
                         value={JSON.stringify(option.value)}
                         checked={isChecked}
-                        onChange={() => handleAnswer(q.name, option.value, index)}
+                        onChange={(e) => handleAnswer(q.name, option.value, index, e)}
                         style={{ display: 'none' }}
                       />
                       <label 
@@ -202,7 +197,7 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
                         <i 
                           className={isChecked ? "fas fa-check-circle" : "far fa-circle"}
                           style={{ 
-                            marginRight: '0.4rem',
+                            marginRight: '0.8rem',
                             color: isChecked ? checkColor : 'inherit',
                             fontSize: '1.2rem'
                           }}
@@ -232,6 +227,6 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
       })}
     </div>
   );
-}
+};
 
 export default Quiz;

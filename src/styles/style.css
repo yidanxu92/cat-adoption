@@ -329,18 +329,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     }
   }
   
-  /*header::after {
-    content: '';
-    display: block;
-    content: '';
-    background: url(./../assets/bird.svg) no-repeat;
-    position: absolute;
-    top: -5.75rem;
-    right: -7.5rem;
-    height: 100%;
-    width: 20rem;
-  }*/
-  
   @media (min-width: 454px) {
     header::after {
       width: 22.5rem;
@@ -451,6 +439,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     width: 100%;
   }
   
+  @media (max-width: 750px) {
+    .q-num {
+      display: none; /* 在屏幕宽度小于600px时隐藏 */
+    }
+  }
+  
   @media (min-width: 454px) {
     .q-num {
       font-size: 6.25rem;
@@ -493,36 +487,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     fill: #fdb3d0;
   }
   
-  /*.img-result .img-result-bear::after {
-    content: '';
-    background: url(./../assets/bear.svg) no-repeat;
-    width: 24.5rem;
-    height: 100%;
-  }*/
-  
-  /*.img-result .img-result-rabbit::after {
-    content: '';
-    background: url(./../assets/rabbit.svg) no-repeat;
-    width: 23.55rem;
-    height: 100%;
-  }*/
-  
   .container-submit {
     position: relative;
     overflow: hidden;
   }
   
-  /*.container-submit::before {
-    content: '';
-    display: block;
-    content: '';
-    background: url(./../assets/acorn.svg) no-repeat;
-    position: absolute;
-    top: -3rem;
-    left: -4rem;
-    height: 100%;
-    width: 16.5rem;
-  }*/
   
   @media (min-width: 454px) {
     .container-submit::before {
@@ -564,18 +533,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     position: relative;
     overflow: hidden;
   }
-  
-  /*.container-reset-quiz::before {
-    content: '';
-    display: block;
-    content: '';
-    background: url(./../assets/mushroom.svg) no-repeat;
-    position: absolute;
-    right: -13.5rem;
-    bottom: -1.2rem;
-    height: 100%;
-    width: 24.5rem;
-  }*/
   
   @media (min-width: 454px) {
     .container-reset-quiz::before {
@@ -728,7 +685,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     flex-direction: column;
     align-items: center;
     padding: 1.5rem;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: #f8f3e1;
+    border: 0.5rem solid #696d31;
     position: relative;
     z-index: 1;
   }
@@ -750,6 +708,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     font-size: 2rem;
     text-align: center;
     width: 100%;
+    color: #000000;
+    text-shadow: 0.1rem 0.1rem #fdb3d0;
+    font-family: "Fascinate Inline", cursive;
   }
   
   .cat-card p {
@@ -768,17 +729,21 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   }
   
   .trait-tag {
-    background-color: #f0f0f0;
+    background-color: #696d31;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     font-size: 0.8rem;
+    color: #f8f3e1;
+    font-weight: 700;
   }
   
   .match-score {
     font-weight: bold;
-    color: #696d31;
+    color: #f8842d;
     font-size: 1.2rem;
     margin: 1rem 0;
+    font-family: "Fascinate Inline", cursive;
+    text-shadow: 0.1rem 0.1rem #fdb3d0;
   }
   
   .loading-spinner {
@@ -883,5 +848,60 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   
   .bg-beige .custom-radio input[type="radio"]:checked + label {
     background-color: rgba(105, 109, 49, 0.2); 
+  }
+  
+  /* 选中状态的爪印 */
+  .radio-label.selected i {
+    display: none;
+  }
+  
+  .radio-label.selected::before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin-right: 0.8rem;
+    background-image: url('/images/paw-print.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+  }
+  
+  /* 保持原有的圆圈样式 */
+  .radio-label i {
+    margin-right: 0.8rem;
+    flex-shrink: 0;
+  }
+  
+  /* Adopt 按钮样式 */
+  .page-header-adopt {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f8842d;  /* 橙色背景 */
+    color: #000000;  /* 黑色文字 */
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    border: none;
+  }
+  
+  .page-header-adopt:hover {
+    background-color: #696d31;  /* hover时变成绿色 */
+    color: #f8f3e1;  /* hover时文字变成浅色 */
+    border-bottom: none;
+  }
+  
+  .page-header-adopt:active {
+    background-color: #696d31;  /* 点击时保持绿色 */
+    color: #f8f3e1;
+    transform: translateY(2px);  /* 添加点击效果 */
+  }
+  
+  .page-header-adopt i {
+    font-size: 1rem;
   }
  
