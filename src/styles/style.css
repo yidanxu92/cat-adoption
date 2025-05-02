@@ -649,18 +649,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   
 
   
-  .result-container {
-    padding: 2rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #f8f3e1;
-  }
-  
   .matched-cats {
     display: flex;
     flex-direction: column;
@@ -704,13 +692,32 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   }
   
   .cat-card h2 {
-    margin: 1rem 0;
-    font-size: 2rem;
+    font-family: "Fascinate Inline", cursive;
+    font-size: 2.4rem;
+    text-transform: capitalize;
     text-align: center;
     width: 100%;
+    margin: 1rem 0;
     color: #000000;
     text-shadow: 0.1rem 0.1rem #fdb3d0;
-    font-family: "Fascinate Inline", cursive;
+    position: relative;
+    opacity: 0;
+    animation: writeText 2s ease-out forwards;
+  }
+  
+  @media (min-width: 454px) {
+    .cat-card h2 {
+      font-size: 3rem;
+    }
+  }
+  
+  @keyframes writeText {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   
   .cat-card p {
@@ -850,7 +857,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     background-color: rgba(105, 109, 49, 0.2); 
   }
   
-  /* 选中状态的爪印 */
+ 
   .radio-label.selected i {
     display: none;
   }
@@ -867,19 +874,19 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
     flex-shrink: 0;
   }
   
-  /* 保持原有的圆圈样式 */
+
   .radio-label i {
     margin-right: 0.8rem;
     flex-shrink: 0;
   }
   
-  /* Adopt 按钮样式 */
+ 
   .page-header-adopt {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background-color: #f8842d;  /* 橙色背景 */
-    color: #000000;  /* 黑色文字 */
+    background-color: #f8842d;  
+    color: #000000;  
     padding: 0.8rem 1.5rem;
     border-radius: 50px;
     text-decoration: none;
@@ -891,17 +898,180 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
   
   .page-header-adopt:hover {
     background-color: #696d31;  /* hover时变成绿色 */
-    color: #f8f3e1;  /* hover时文字变成浅色 */
+    color: #f8f3e1; 
     border-bottom: none;
   }
   
   .page-header-adopt:active {
-    background-color: #696d31;  /* 点击时保持绿色 */
+    background-color: #696d31; 
     color: #f8f3e1;
-    transform: translateY(2px);  /* 添加点击效果 */
+    transform: translateY(2px);  
   }
   
   .page-header-adopt i {
     font-size: 1rem;
   }
- 
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .bongo-cat-container {
+    width: 100%;
+    max-width: 787px;
+    height: auto;
+    margin: 20px auto;
+  }
+  
+  #bongo-cat {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* 打字动画 */
+  .typing-animation {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: 1200ms;
+  }
+  
+  /* 定义每个路径的动画 */
+  #f3-l9 { animation-name: typing-f3-l9; }
+  #f3-l8 { animation-name: typing-f3-l8; }
+  #f3-l7 { animation-name: typing-f3-l7; }
+  #f2-l6 { animation-name: typing-f2-l6; }
+  #f2-l5 { animation-name: typing-f2-l5; }
+  #f2-l4 { animation-name: typing-f2-l4; }
+  #f1-l3 { animation-name: typing-f1-l3; }
+  #f1-l2 { animation-name: typing-f1-l2; }
+  #f1-l1 { animation-name: typing-f1-l1; }
+  
+  /* 爪子动画 */
+  #paw-right--up, 
+  #paw-right--down, 
+  #paw-left--up,
+  #paw-left--down {
+    animation: blink 300ms infinite;
+  }
+  
+  #paw-right--up,
+  #paw-left--down {
+    animation-delay: 150ms;
+  }
+  
+  @keyframes blink {
+    0% { opacity: 0; }
+    49% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+  
+  /* 键盘代码动画 */
+  #laptop__code {
+    transform:
+      translate(70px, 130px)
+      scale(1.5)
+      rotateX(-37deg)
+      rotateY(-46deg)
+      rotateZ(-23deg)
+      translateZ(-50px);
+    transform-origin: 0 0;
+  }
+  
+  /* 定义所有打字动画关键帧 */
+  @keyframes typing-f3-l9 {
+    0% { d: path('M8,25L8,25'); }
+    82% { d: path('M8,25L8,25'); }
+    92% { d: path('M8,25L96,25'); }
+    100% { d: path('M8,25L96,25'); }
+  }
+  
+  @keyframes typing-f3-l8 {
+    0% { d: path('M8,13L8,13'); }
+    68% { d: path('M8,13L8,13'); }
+    82% { d: path('M8,13L146,13'); }
+    100% { d: path('M8,13L146,13'); }
+  }
+  
+  @keyframes typing-f3-l7 {
+    0% { d: path('M0,1L0,1'); }
+    60% { d: path('M0,1L0,1'); }
+    68% { d: path('M0,1L96,1'); }
+    100% { d: path('M0,1L96,1'); }
+  }
+  
+  @keyframes typing-f2-l6 {
+    0% { d: path('M8,25L8,25'); }
+    54% { d: path('M8,25L8,25'); }
+    60% { d: path('M8,25L69,25'); }
+    100% { d: path('M8,25L69,25'); }
+  }
+  
+  @keyframes typing-f2-l5 {
+    0% { d: path('M8,13L8,13'); }
+    44% { d: path('M8,13L8,13'); }
+    54% { d: path('M8,13L114,13'); }
+    100% { d: path('M8,13L114,13'); }
+  }
+  
+  @keyframes typing-f2-l4 {
+    0% { d: path('M0,1L0,1'); }
+    30% { d: path('M0,1L0,1'); }
+    44% { d: path('M0,1L136,1'); }
+    100% { d: path('M0,1L136,1'); }
+  }
+  
+  @keyframes typing-f1-l3 {
+    0% { d: path('M8,25L8,25'); }
+    24% { d: path('M8,25L8,25'); }
+    30% { d: path('M8,25L61,25'); }
+    100% { d: path('M8,25L61,25'); }
+  }
+  
+  @keyframes typing-f1-l2 {
+    0% { d: path('M8,13L8,13'); }
+    14% { d: path('M8,13L8,13'); }
+    24% { d: path('M8,13L124,13'); }
+    100% { d: path('M8,13L124,13'); }
+  }
+  
+  @keyframes typing-f1-l1 {
+    0% { d: path('M0,1L0,1'); }
+    14% { d: path('M0,1L160,1'); }
+    100% { d: path('M0,1L160,1'); }
+  }
+  
+  #paw-right--up, 
+  #paw-right--down, 
+  #paw-left--up,
+  #paw-left--down {
+    animation: blink 300ms infinite;
+  }
+  
+  #paw-right--up,
+  #paw-left--down{
+    animation-delay: 150ms;
+  }
+  
+  @keyframes blink {
+    0% { opacity: 0; }
+    49% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+  
+  .result-container {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f8f3e1;
+  }

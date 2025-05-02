@@ -76,7 +76,7 @@ export default function Home() {
 
   useEffect(() => {
     if (showResult) {
-      // 确保在滚动前DOM已更新
+      
       setTimeout(() => {
         handleScrollTo("result");
       }, 100);

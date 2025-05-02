@@ -73,7 +73,7 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
   
 
   const handleAnswer = (questionName, value, currentQuestionIndex, event) => {
-    // 直接执行回调函数
+    
     const updatedAnswers = { ...answers, [questionName]: value };
     const findNextWithUpdatedAnswers = () => {
       const nextUnansweredIndex = questions.findIndex(
@@ -208,7 +208,7 @@ const Quiz = ({ answers,handleScrollTo,onAnswer,onComplete,onAllQuestionsAnswere
                   );
                 })}
                 
-                {/* 显示警告 */}
+                
                 {isUnanswered && (
                   <div className="alert">
                     <p>Please answer this question</p>
