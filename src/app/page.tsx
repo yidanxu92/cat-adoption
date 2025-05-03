@@ -74,9 +74,23 @@ export default function Home() {
     });
   };
 
+  // 首次挂载时恢复 localStorage
+  useEffect(() => {
+    const savedAnswers = localStorage.getItem('quiz-answers');
+    const savedShowResult = localStorage.getItem('quiz-showResult');
+    if (savedAnswers) setAnswers(JSON.parse(savedAnswers));
+    if (savedShowResult) setShowResult(JSON.parse(savedShowResult));
+  }, []);
+
+  // 每次 answers 或 showResult 变化时保存
+  useEffect(() => {
+    localStorage.setItem('quiz-answers', JSON.stringify(answers));
+    localStorage.setItem('quiz-showResult', JSON.stringify(showResult));
+  }, [answers, showResult]);
+
+  // showResult 变为 true 时自动滚动到结果区
   useEffect(() => {
     if (showResult) {
-      
       setTimeout(() => {
         handleScrollTo("result");
       }, 100);
@@ -87,8 +101,10 @@ export default function Home() {
     setAnswers({});
     setShowResult(false);
     setIsLoadingResults(false);
-    setPreloadedResults(null); // Clear preloaded results
-    setIsPreloading(false);    // Reset preloading state
+    setPreloadedResults(null);
+    setIsPreloading(false);
+    localStorage.removeItem('quiz-answers');
+    localStorage.removeItem('quiz-showResult');
     handleScrollTo("question-0");
   };
 
